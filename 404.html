@@ -18,6 +18,7 @@
     <router-link to="/path/foo?query=foo">Go to foo</router-link>
     <router-link to="/path/👍?query=👍">Go to 👍</router-link>
     <router-link to="/path/!@#$%^&*()?query=/!@#$%^&*()">Go to !@#$%^&*()</router-link>
+    <router-link :to="{ name: 'pathRoute', params: { id: '!@#$%^&*()' }}">Go to !@#$%^&*()</router-link>
     <router-link to="/path/{}[]<>;/?query=/{}[]<>;/">Go to {}[]<>;/</router-link>
     <router-link to="/path/日本?query=日本">Go to 日本</router-link>
     <router-link to="/path/خحجث?query=خحجث">Go to خحجث</router-link>
@@ -39,7 +40,10 @@ const Path = { template: '<div>Path <code>{{ $route.params.id }}</code> with <co
 // `Vue.extend()`, or just a component options object.
 // We'll talk about nested routes later.
 const routes = [
-  { path: '/path/:id', component: Path }
+  { path: '/path/:id'
+  , name: 'pathRoute'
+  , props: route => ({ query: route.query.query })
+  , component: Path }
 ]
 
 // 3. Create the router instance and pass the `routes` option
